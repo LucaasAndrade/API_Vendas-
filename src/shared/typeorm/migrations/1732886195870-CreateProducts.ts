@@ -36,10 +36,11 @@ export class CreateProducts1732886195870 implements MigrationInterface {
           name: 'updated_at',
           type: 'timestamp',
           default: 'now()',
-        }]
-      }
-    ))
-  };
+        }
+      ]
+    }
+    ));
+  }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropTable('products');
