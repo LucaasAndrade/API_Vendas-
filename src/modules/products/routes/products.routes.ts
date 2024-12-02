@@ -8,9 +8,7 @@ import { celebrate, Joi, Segments } from 'celebrate';
 const productsRouter = Router();
 const productsController = new ProductsController();
 
-productsRouter.get('/', async (req, resp) => {
-  await productsController.index(req, resp);
-});
+productsRouter.get('/', productsController.index);
 
 productsRouter.get(
   '/:id',
@@ -19,9 +17,8 @@ productsRouter.get(
       id: Joi.string().uuid().required(),
     }
   }),
-  async (req, resp) => {
-  await productsController.show(req, resp);
-});
+  productsController.show
+);
 
 productsRouter.post
   ('/',
@@ -32,9 +29,8 @@ productsRouter.post
         quantity: Joi.number().required(),
     }
   }),
-  async (req, resp) => {
-  await productsController.create(req, resp);
-});
+  productsController.create
+);
 
 productsRouter.put(
   '/:id',
@@ -48,9 +44,8 @@ productsRouter.put(
         id: Joi.string().uuid().required(),
       },
     }),
-  async (req, resp) => {
-  await productsController.update(req, resp);
-});
+  productsController.update
+);
 
 productsRouter.delete(
   '/:id',
@@ -59,9 +54,8 @@ productsRouter.delete(
       id: Joi.string().uuid().required(),
     }
   }),
-  async (req, resp) => {
-  await productsController.delete(req, resp);
-});
+  productsController.delete
+);
 
 
 export default productsRouter;

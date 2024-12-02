@@ -9,11 +9,11 @@ import DeleteProductService from "../services/DeleteProductService";
 
 export default class ProductsController {
 
-  public async index(request: Request, response: Response): Promise<any>{
+  public async index(_request: Request, response: Response): Promise<any>{
     const listProducts = new ListProductService();
     const products = await listProducts.execute();
 
-    return response.json(products);
+    return response.send(products);
   }
 
   public async show(request: Request, response: Response): Promise<Response | any>{
