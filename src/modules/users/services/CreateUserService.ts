@@ -22,8 +22,11 @@ class CreateUserService {
     */
 
     const emailExist = await userRespository.findByEmail(email);
-    if (email) {
+    console.log(emailExist);
+    
+    if (emailExist) {
       throw new AppError("Email address already used.");
+      // throw new Error("Teste");
     }
 
     const user = userRespository.create({

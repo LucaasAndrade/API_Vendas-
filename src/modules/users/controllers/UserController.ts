@@ -18,7 +18,7 @@ export default class UserController {
     const { name, email, password } = request.body;
 
     const createUser = new CreateUserService();
-    const user = createUser.execute({
+    const user = await createUser.execute({
       name,
       email,
       password,
