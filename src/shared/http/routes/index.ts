@@ -1,13 +1,14 @@
-import { Router, Request, Response } from "express";
-import productsRouter from "../../../modules/products/routes/products.routes";
+import { Router, Request, Response } from 'express';
+import productsRouter from '../../../modules/products/routes/products.routes';
+import usersRouter from '../../../modules/users/routes/user.routes';
 
 const routes = Router();
 
-
 routes.use('/products', productsRouter);
+routes.use('/users', usersRouter);
 
 routes.get('/', (_request: Request, response: Response): any => {
-  console.log(typeof (response));
+  console.log(typeof response);
   return response.json({ message: 'Hello DEV!' });
 });
 
