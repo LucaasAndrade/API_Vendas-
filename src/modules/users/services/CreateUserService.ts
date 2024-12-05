@@ -2,6 +2,7 @@ import { getCustomRepository } from "typeorm";
 import User from "../typeorm/entities/User";
 import AppError from "../../../shared/errors/appError";
 import UsersRepository from "../typeorm/repositories/UsersRepository";
+import { hashSync } from "bcryptjs";
 
 
 interface IRequest{
@@ -22,17 +23,18 @@ class CreateUserService {
     */
 
     const emailExist = await userRespository.findByEmail(email);
-    console.log(emailExist);
     
     if (emailExist) {
       throw new AppError("Email address already used.");
       // throw new Error("Teste");
     }
 
+    const hashedPassword = await hashSync(password, 8);
+
     const user = userRespository.create({
       name,
       email,
-      password,
+      password: hashedPassword,
     });
 
     await userRespository.save(user);
