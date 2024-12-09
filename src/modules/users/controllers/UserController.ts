@@ -12,7 +12,7 @@ export default class UserController {
     const users = await listUser.execute();
 
     return response.json(users);
-  } 
+  }
 
   public async create(request: Request, response: Response): Promise<any> {
     const { name, email, password } = request.body;
