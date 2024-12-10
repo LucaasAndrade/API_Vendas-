@@ -6,13 +6,9 @@ export default class UserAvatarController {
   public async update(request: Request, response: Response): Promise<any> {
     const updateAvatar = new UpdateUserAvatarService();
 
-    if (!request.file) {
-      throw new AppError('Do not possible updated avatar.');
-    }
-
-    const user = updateAvatar.execute({
+    const user = await updateAvatar.execute({
       userId: request.user.id,
-      avatarFileName: request.file.filename,
+      avatarFileName: request.file?.filename,
     });
 
     return response.json(user);
