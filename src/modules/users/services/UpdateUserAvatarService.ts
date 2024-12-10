@@ -15,6 +15,7 @@ class UpdateUserAvatarService {
   public async execute({ userId, avatarFileName }: IRequest): Promise<User> {
     const userRespository = getCustomRepository(UsersRepository);
 
+    if (!avatarFileName) throw new AppError('AvatarFile unkdown');
     const user = await userRespository.findById(userId);
 
     if (!user) {
