@@ -29,6 +29,7 @@ class CreateOrderService {
     if (!customerExist)
       throw new AppError('Could not find any customer with then given id.');
 
+    /* Validação dos produtos */
     const existsProducts = await productRepository.findAllByIds(products);
 
     if (!existsProducts?.length) {
@@ -45,6 +46,8 @@ class CreateOrderService {
       throw new AppError(`Could not find ${checkInexistentProducts[0].id}`);
     }
 
+    /*  VALIDAÇÃO DA QUANTIDADE DE PRODUTOS */
+
     const quantityAvailable = products.filter(
       product =>
         existsProducts.filter(p => p.id === product.id)[0].quantity <
@@ -56,6 +59,8 @@ class CreateOrderService {
         `The quantity  ${quantityAvailable[0].quantity} is not available for ${quantityAvailable[0].id}`,
       );
     }
+
+    /* Valor dos produtos */
 
     const serializedProducts = products.map(product => ({
       product_id: product.id,
