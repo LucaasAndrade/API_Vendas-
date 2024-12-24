@@ -3,7 +3,7 @@ import ShowOrderService from '../services/ShowOrderService';
 import Order from '../typeorm/entities/Order';
 import CreateOrderService from '../services/CreateOrderService';
 
-export default class ProductsController {
+export default class OrderController {
   public async show(
     request: Request,
     response: Response,
@@ -22,13 +22,13 @@ export default class ProductsController {
   ): Promise<Response | any> {
     const { customer_id, products } = request.body;
 
-    const createProduct = new CreateOrderService();
+    const createOrder = new CreateOrderService();
 
-    const product = await createProduct.execute({
+    const order = await createOrder.execute({
       customer_id,
       products,
     });
 
-    return response.json(product);
+    return response.json(order);
   }
 }

@@ -26,13 +26,19 @@ class CreateOrderService {
     */
 
     const customerExist = await customerRepository.findById(customer_id);
-    if (!customerExist)
+    if (!customerExist) {
       throw new AppError('Could not find any customer with then given id.');
+    }
 
+    console.log('passou aqui 1x');
+    console.log(products);
     /* Validação dos produtos */
     const existsProducts = await productRepository.findAllByIds(products);
 
-    if (!existsProducts?.length) {
+    console.log('passou aqui');
+    console.log(existsProducts);
+
+    if (!existsProducts.length) {
       throw new AppError('Could not find any products with then given ids.');
     }
 
@@ -78,7 +84,7 @@ class CreateOrderService {
     const updatedProductQuantity = order_products.map(product => ({
       id: product.product_id,
       quantity:
-        existsProducts.filter(p => p.id === product.id)[0].quantity -
+        existsProducts.filter(p => p.id === product.product_id)[0].quantity -
         product.quantity,
     }));
 

@@ -1,21 +1,22 @@
-import { getCustomRepository } from "typeorm";
-import { ProductRepository } from "../typeorm/repositories/ProductsRepository";
-import Product from "../typeorm/entities/Product";
-import AppError from "../../../shared/errors/appError";
+import { getCustomRepository } from 'typeorm';
+import { ProductRepository } from '../typeorm/repositories/ProductsRepository';
+import Product from '../typeorm/entities/Product';
+import AppError from '../../../shared/errors/appError';
 
-interface IRequest{
+interface IRequest {
   id: string;
 }
 
-
 class ShowProductService {
-  public async execute({id} : IRequest): Promise<Product> {
+  public async execute({ id }: IRequest): Promise<Product> {
     const productsRepository = getCustomRepository(ProductRepository);
 
     const product = await productsRepository.findOne(id);
 
+    console.log(product);
+
     if (!product) {
-      throw new AppError("Product not found!")
+      throw new AppError('Product not found!');
     }
 
     return product;
