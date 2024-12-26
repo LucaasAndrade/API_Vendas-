@@ -7,12 +7,15 @@ import AppError from '../errors/appError';
 import '../typeorm';
 import { errors } from 'celebrate';
 import upload from '../../config/upload';
+import { pagination } from 'typeorm-pagination';
 
 const app = express();
 
 app.use(cors());
 app.use('/files', express.static(upload.directory));
 app.use(express.json());
+
+app.use(pagination);
 
 app.use(routes);
 app.use(errors());
