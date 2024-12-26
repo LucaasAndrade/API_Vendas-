@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import 'dotenv/config';
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 import cors from 'cors';
@@ -41,6 +42,8 @@ app.use(
   },
 );
 
-app.listen(3030, () => {
-  console.log('Servidor online! Porta: ' + 3030);
+const port = process.env.PORT || 3333;
+
+app.listen(port, () => {
+  console.log('Servidor online! Porta: ' + port);
 });
