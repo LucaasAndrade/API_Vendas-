@@ -7,7 +7,6 @@ import authConfig from '../../../config/auth';
 import AppError from '../../../shared/errors/appError';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
 
-
 interface IRequest {
   email: string;
   password: string;
@@ -40,14 +39,18 @@ class CreateSessionSerive {
       throw new AppError('Incorrect email/password combination.', 401);
     }
 
+    if (!authConfig.jwt.secret) {
+      throw new AppError('JWT secret is not defined.', 500);
+    }
+
     const token = sign({}, authConfig.jwt.secret, {
-        subject: user.id,
-        expiresIn: authConfig.jwt.expiresIn,
-    })
+      subject: user.id,
+      expiresIn: authConfig.jwt.expiresIn,
+    });
 
     return {
-        user,
-        token,
+      user,
+      token,
     };
   }
 }

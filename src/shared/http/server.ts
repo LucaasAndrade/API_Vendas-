@@ -9,12 +9,16 @@ import '../typeorm';
 import { errors } from 'celebrate';
 import upload from '../../config/upload';
 import { pagination } from 'typeorm-pagination';
+import rateLimit from '../middlewares/rateLimiter';
 
 const app = express();
 
 app.use(cors());
-app.use('/files', express.static(upload.directory));
 app.use(express.json());
+
+app.use(rateLimit);
+
+app.use('/files', express.static(upload.directory));
 
 app.use(pagination);
 
